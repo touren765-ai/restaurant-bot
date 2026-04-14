@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Client",
+    "plat_id": 1,
+    "plat_nom": "Riz sauce arachide",
+    "plat_prix": 15000,
+    "adresse": "Quartier Madina, rue KA-045, en face de la mosquée",
+    "statut": "nouveau",
+    "created_at": "2026-04-14T16:00:28.561Z"
+  },
+  {
+    "id": 2,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Client",
+    "plat_id": 6,
+    "plat_nom": "Jus bissap",
+    "plat_prix": 3000,
+    "adresse": "Sonfonia T7cass",
+    "statut": "nouveau",
+    "created_at": "2026-04-14T16:03:23.663Z"
+  }
+]
