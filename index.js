@@ -24,7 +24,9 @@ app.use(express.json());app.post('/webhook', async function(req, res) {
     console.error('Erreur:', error);
     res.status(500).send('Erreur serveur');
   }
-});app.get('/dashboard', function(req, res) {
+});
+
+app.get('/dashboard', function(req, res) {
   res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
@@ -32,7 +34,9 @@ app.get('/abonnement', function(req, res) {
   res.sendFile(path.join(__dirname, 'abonnement.html'));
 });
 
-app.post('/abonnement', function(req, res) {
+app.get('/admin', function(req, res) {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});app.post('/abonnement', function(req, res) {
   var demande = {
     id: Date.now(),
     plan: req.body.plan,
@@ -50,6 +54,31 @@ app.post('/abonnement', function(req, res) {
   abonnements.push(demande);
   fs.writeFileSync(fichier, JSON.stringify(abonnements, null, 2));
   console.log('Nouvelle demande:', demande.nom, '-', demande.plan);
+  res.json({ ok: true });
+});
+
+app.get('/admin/demandes', function(req, res) {
+  var fichier = path.join(__dirname, 'abonnements.json');
+  var abonnements = [];
+  try {
+    abonnements = JSON.parse(fs.readFileSync(fichier, 'utf8'));
+  } catch(e) {}
+  res.json(abonnements);
+});
+
+app.post('/admin/demandes/:id', function(req, res) {
+  var id = parseInt(req.params.id);
+  var statut = req.body.statut;
+  var fichier = path.join(__dirname, 'abonnements.json');
+  var abonnements = [];
+  try {
+    abonnements = JSON.parse(fs.readFileSync(fichier, 'utf8'));
+  } catch(e) {}
+  abonnements = abonnements.map(function(a) {
+    if (a.id === id) a.statut = statut;
+    return a;
+  });
+  fs.writeFileSync(fichier, JSON.stringify(abonnements, null, 2));
   res.json({ ok: true });
 });app.get('/commandes', function(req, res) {
   var db = require('./database');
