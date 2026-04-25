@@ -6,12 +6,9 @@ var path = require('path');
 
 var app = express();
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-app.post('/webhook', async function(req, res) {
+app.use(express.json());app.post('/webhook', async function(req, res) {
   var telephone = req.body.From || '';
   var message = req.body.Body || '';
-  console.log('Body recu:', JSON.stringify(req.body));
   console.log('Nouveau message de ' + telephone + ': ' + message);
   if (!message) {
     res.type('text/xml');
@@ -27,9 +24,7 @@ app.post('/webhook', async function(req, res) {
     console.error('Erreur:', error);
     res.status(500).send('Erreur serveur');
   }
-});
-
-app.get('/dashboard', function(req, res) {
+});app.get('/dashboard', function(req, res) {
   res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
@@ -49,14 +44,14 @@ app.post('/abonnement', function(req, res) {
   };
   var fichier = path.join(__dirname, 'abonnements.json');
   var abonnements = [];
-  try { abonnements = JSON.parse(fs.readFileSync(fichier, 'utf8')); } catch(e) {}
+  try {
+    abonnements = JSON.parse(fs.readFileSync(fichier, 'utf8'));
+  } catch(e) {}
   abonnements.push(demande);
   fs.writeFileSync(fichier, JSON.stringify(abonnements, null, 2));
   console.log('Nouvelle demande:', demande.nom, '-', demande.plan);
   res.json({ ok: true });
-});
-
-app.get('/commandes', function(req, res) {
+});app.get('/commandes', function(req, res) {
   var db = require('./database');
   db.commandesDuJour().then(function(commandes) {
     res.json(commandes);
@@ -68,7 +63,9 @@ app.post('/commandes/:id/statut', function(req, res) {
   var statut = req.body.statut;
   var fichier = path.join(__dirname, 'commandes.json');
   var commandes = [];
-  try { commandes = JSON.parse(fs.readFileSync(fichier, 'utf8')); } catch(e) {}
+  try {
+    commandes = JSON.parse(fs.readFileSync(fichier, 'utf8'));
+  } catch(e) {}
   commandes = commandes.map(function(c) {
     if (c.id === id) c.statut = statut;
     return c;
