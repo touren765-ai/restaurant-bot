@@ -1,0 +1,17 @@
+{
+  "id": "baobab",
+  "nom": "Restaurant Le Baobab",
+  "telephone": "+14155238886",
+  "plats": [
+    { "id": 1, "nom": "Riz sauce arachide", "prix": 15000 },
+    { "id": 2, "nom": "Thieboudiene", "prix": 18000 },
+    { "id": 3, "nom": "Poulet yassa", "prix": 20000 },
+    { "id": 4, "nom": "Brochettes de boeuf", "prix": 12000 },
+    { "id": 5, "nom": "Attieke poisson", "prix": 16000 }
+  ],
+  "boissons": [
+    { "id": 6, "nom": "Jus bissap", "prix": 3000 },
+    { "id": 7, "nom": "Jus gingembre", "prix": 3000 },
+    { "id": 8, "nom": "Eau minerale", "prix": 2000 }
+  ]
+}
