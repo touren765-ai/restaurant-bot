@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard RH - Groupe BCEIP</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #0A0D14; color: #fff; }
+    .header { background: #111520; border-bottom: 2px solid #2B7FFF; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 20px; color: #fff; }
+    .header h1 span { color: #2B7FFF; }
+    .header p { font-size: 12px; color: #8A94AE; margin-top: 4px; }
+    .online { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #8A94AE; }
+    .dot { width: 8px; height: 8px; background: #00C896; border-radius: 50%; }
+    .stats { display: flex; gap: 15px; padding: 20px 30px; flex-wrap: wrap; }
+    .stat { background: #111520; border: 1px solid #1E2535; border-radius: 8px; padding: 18px 22px; flex: 1; min-width: 140px; border-top: 3px solid #2B7FFF; }
+    .stat h2 { font-size: 32px; font-weight: 900; color: #2B7FFF; }
+    .stat p { font-size: 12px; color: #8A94AE; margin-top: 5px; }
+    .section { padding: 0 30px 30px; }
+    .section h2 { font-size: 16px; color: #8A94AE; letter-spacing: 3px; margin-bottom: 15px; }
+    .carte { background: #111520; border: 1px solid #1E2535; border-radius: 8px; padding: 16px 20px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-left: 3px solid #2B7FFF; }
+    .carte-info h3 { font-size: 15px; color: #fff; }
+    .carte-info p { color: #8A94AE; font-size: 13px; margin-top: 4px; }
+    .badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+    .badge-nouveau { background: #1A2E45; color: #2B7FFF; }
+    .badge-convoque { background: #1A3A2A; color: #00C896; }
+    .badge-refuse { background: #3A1A1A; color: #CC4444; }
+    .btn { padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; margin: 2px; }
+    .btn-blue { background: #2B7FFF; color: white; }
+    .btn-red { background: #CC4444; color: white; }
+    .vide { text-align: center; padding: 40px; color: #8A94AE; }
+    .refresh { text-align: center; padding: 15px; }
+    .refresh button { background: #2B7FFF; color: white; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>⚡ <span>BCEIP</span> — Dashboard RH</h1>
+    <p id="date-heure"></p>
+  </div>
+  <div class="online">
+    <div class="dot"></div>
+    Bot WhatsApp actif
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <h2 id="total">0</h2>
+    <p>Total candidatures</p>
+  </div>
+  <div class="stat">
+    <h2 id="nouvelles" style="color:#2B7FFF">0</h2>
+    <p>Nouvelles</p>
+  </div>
+  <div class="stat">
+    <h2 id="convoquees" style="color:#00C896">0</h2>
+    <p>Convoquées</p>
+  </div>
+  <div class="stat">
+    <h2 id="refusees" style="color:#CC4444">0</h2>
+    <p>Refusées</p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>CANDIDATURES REÇUES</h2>
+  <div id="liste"></div>
+</div>
+
+<div class="refresh">
+  <button onclick="charger()">🔄 Actualiser</button>
+</div>
+
+<script>
+  function updateHeure() {
+    var now = new Date();
+    document.getElementById('date-heure').textContent = now.toLocaleDateString('fr-FR') + ' — ' + now.toLocaleTimeString('fr-FR');
+  }
+  updateHeure();
+  setInterval(updateHeure, 1000);
+
+  function charger() {
+    fetch('/commandes')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var candidatures = data.filter(function(c) { return c.plat_nom && c.plat_nom.indexOf('Candidature') !== -1; });
+
+        document.getElementById('total').textContent = candidatures.length;
+        document.getElementById('nouvelles').textContent = candidatures.filter(function(c) { return c.statut === 'nouveau'; }).length;
+        document.getElementById('convoquees').textContent = candidatures.filter(function(c) { return c.statut === 'en_preparation'; }).length;
+        document.getElementById('refusees').textContent = candidatures.filter(function(c) { return c.statut === 'livre'; }).length;
+
+        var liste = document.getElementById('liste');
+        if (candidatures.length === 0) {
+          liste.innerHTML = '<div class="vide">Aucune candidature pour le moment</div>';
+          return;
+        }
+
+        liste.innerHTML = '';
+        candidatures.reverse().forEach(function(c) {
+          var badge = '';
+          if (c.statut === 'nouveau') badge = '<span class="badge badge-nouveau">Nouvelle</span>';
+          else if (c.statut === 'en_preparation') badge = '<span class="badge badge-convoque">Convoquée</span>';
+          else badge = '<span class="badge badge-refuse">Refusée</span>';
+
+          var div = document.createElement('div');
+          div.className = 'carte';
+          div.innerHTML = '<div class="carte-info"><h3>#' + c.id + ' — ' + c.client_nom + '</h3><p>💼 ' + (c.plat_nom || '').replace('Candidature : ', '') + '</p><p>📋 ' + (c.adresse || '') + '</p><p>📱 ' + c.telephone + '</p></div><div style="display:flex;gap:8px;align-items:center">' + badge + (c.statut === 'nouveau' ? '<button class="btn btn-blue" onclick="changerStatut(' + c.id + ', \'en_preparation\')">✅ Convoquer</button><button class="btn btn-red" onclick="changerStatut(' + c.id + ', \'livre\')">❌ Refuser</button>' : '') + '</div>';
+          liste.appendChild(div);
+        });
+      });
+  }
+
+  function changerStatut(id, statut) {
+    fetch('/commandes/' + id + '/statut', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ statut: statut })
+    }).then(function() { charger(); });
+  }
+
+  charger();
+  setInterval(charger, 10000);
+</script>
+</body>
+</html>
