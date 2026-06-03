@@ -1,6 +1,7 @@
 require('dotenv').config();
 var express = require('express');
 var bot = require('./bot');
+var bot_bceip = require('./bot_bceip');
 var fs = require('fs');
 var path = require('path');
 
@@ -102,7 +103,25 @@ app.post('/commandes/:id/statut', function(req, res) {
   fs.writeFileSync(fichier, JSON.stringify(commandes, null, 2));
   res.json({ ok: true });
 });
-
+app.post('/webhook/bceip', async function(req, res) {
+  var telephone = req.body.From || '';
+  var message = req.body.Body || '';
+  console.log('BCEIP - Message de ' + telephone + ': ' + message);
+  if (!message) {
+    res.type('text/xml');
+    res.send('<?xml version="1.0" encoding="UTF-8"?><Response></Response>');
+    return;
+  }
+  try {
+    var reponse = await bot_bceip.traiterMessage(telephone, message);
+    var twiml = '<?xml version="1.0" encoding="UTF-8"?><Response><Message>' + reponse + '</Message></Response>';
+    res.type('text/xml');
+    res.send(twiml);
+  } catch (error) {
+    console.error('Erreur BCEIP:', error);
+    res.status(500).send('Erreur serveur');
+  }
+});
 app.get('/', function(req, res) {
   res.send('Bot Restaurant Le Baobab - En ligne !');
 });

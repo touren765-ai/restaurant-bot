@@ -42,5 +42,16 @@
     "adresse": "Commissariat Nongo",
     "statut": "livre",
     "created_at": "2026-04-25T02:52:20.342Z"
+  },
+  {
+    "id": 5,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "TOURE ANSOU",
+    "plat_id": 1,
+    "plat_nom": "Candidature : Agent de sécurité",
+    "plat_prix": 0,
+    "adresse": "Email: touren765@gmail.com | Experience: 2",
+    "statut": "nouveau",
+    "created_at": "2026-06-03T11:28:48.948Z"
   }
 ]

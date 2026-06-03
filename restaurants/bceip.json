@@ -1,0 +1,16 @@
+{
+  "id": "bceip",
+  "nom": "Groupe BCEIP",
+  "type": "recrutement",
+  "telephone": "+14155238886",
+  "postes": [
+    { "id": 1, "titre": "Agent de sécurité", "lieu": "Conakry", "type": "CDI" },
+    { "id": 2, "titre": "Gestionnaire RH", "lieu": "Conakry", "type": "CDD" },
+    { "id": 3, "titre": "Technicien mines", "lieu": "Kamsar", "type": "CDI" },
+    { "id": 4, "titre": "Comptable", "lieu": "Conakry", "type": "CDI" },
+    { "id": 5, "titre": "Agent d'entretien", "lieu": "Conakry", "type": "Interim" },
+    { "id": 6, "titre": "Chauffeur", "lieu": "Conakry", "type": "CDI" },
+    { "id": 7, "titre": "Assistant administratif", "lieu": "Conakry", "type": "CDD" },
+    { "id": 8, "titre": "Ingénieur environnement", "lieu": "N'Zérékoré", "type": "CDI" }
+  ]
+}
