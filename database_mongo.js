@@ -1,0 +1,50 @@
+var fs = require('fs');
+var path = require('path');
+
+var fichier = path.join(__dirname, 'commandes.json');
+
+function lireCommandes() {
+  try {
+    if (!fs.existsSync(fichier)) return [];
+    return JSON.parse(fs.readFileSync(fichier, 'utf8'));
+  } catch(e) { return []; }
+}
+
+function sauvegarderCommandes(commandes) {
+  fs.writeFileSync(fichier, JSON.stringify(commandes, null, 2));
+}
+
+async function sauvegarderCommande(commande) {
+  var commandes = lireCommandes();
+  var nouvelleCommande = {
+    id: commandes.length + 1,
+    telephone: commande.telephone,
+    client_nom: commande.nom,
+    plat_id: commande.platId,
+    plat_nom: commande.platNom,
+    plat_prix: commande.platPrix,
+    adresse: commande.adresse,
+    statut: 'nouveau',
+    created_at: new Date()
+  };
+  commandes.push(nouvelleCommande);
+  sauvegarderCommandes(commandes);
+  console.log('✅ Commande sauvegardée, ID:', nouvelleCommande.id);
+  return nouvelleCommande;
+}
+
+async function commandesDuJour() {
+  return lireCommandes();
+}
+
+async function changerStatut(id, statut) {
+  var commandes = lireCommandes();
+  commandes = commandes.map(function(c) {
+    if (String(c.id) === String(id)) c.statut = statut;
+    return c;
+  });
+  sauvegarderCommandes(commandes);
+  return true;
+}
+
+module.exports = { sauvegarderCommande, commandesDuJour, changerStatut };

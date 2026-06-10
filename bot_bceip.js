@@ -1,7 +1,7 @@
 require('dotenv').config();
 var fs = require('fs');
 var path = require('path');
-var database = require('./database');
+var database = require('./database_mongo');
 
 var sessions = {};
 

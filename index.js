@@ -100,22 +100,20 @@ app.post('/admin/demandes/:id', function(req, res) {
   fs.writeFileSync(fichier, JSON.stringify(abonnements, null, 2));
   res.json({ ok: true });
 });app.get('/commandes', function(req, res) {
-  var db = require('./database');
+var db = require('./database_mongo');
   db.commandesDuJour().then(function(commandes) {
     res.json(commandes);
   });
 });
 
 app.post('/commandes/:id/statut', function(req, res) {
-  var id = parseInt(req.params.id);
+ app.post('/commandes/:id/statut', async function(req, res) {
+  var id = req.params.id;
   var statut = req.body.statut;
-  var fichier = path.join(__dirname, 'commandes.json');
-  var commandes = [];
-  try { commandes = JSON.parse(fs.readFileSync(fichier, 'utf8')); } catch(e) {}
-  commandes = commandes.map(function(c) {
-    if (c.id === id) c.statut = statut;
-    return c;
-  });
+  var db = require('./database_mongo');
+  await db.changerStatut(id, statut);
+  res.json({ ok: true });
+});
   fs.writeFileSync(fichier, JSON.stringify(commandes, null, 2));
   res.json({ ok: true });
 });

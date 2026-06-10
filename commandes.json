@@ -53,5 +53,38 @@
     "adresse": "Email: touren765@gmail.com | Experience: 2",
     "statut": "en_preparation",
     "created_at": "2026-06-03T11:28:48.948Z"
+  },
+  {
+    "id": 6,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Louis Tonamou",
+    "plat_id": 4,
+    "plat_nom": "Candidature : Comptable",
+    "plat_prix": 0,
+    "adresse": "Email: touren765@gmail.com | Experience: 2",
+    "statut": "en_preparation",
+    "created_at": "2026-06-04T16:15:16.590Z"
+  },
+  {
+    "id": 7,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Naké Nord",
+    "plat_id": 6,
+    "plat_nom": "Candidature : Chauffeur",
+    "plat_prix": 0,
+    "adresse": "Email: Nakenord443@icloud.com | Experience: 2",
+    "statut": "en_preparation",
+    "created_at": "2026-06-08T11:46:04.744Z"
+  },
+  {
+    "id": 8,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Noel Conde",
+    "plat_id": 3,
+    "plat_nom": "Candidature : Technicien mines",
+    "plat_prix": 0,
+    "adresse": "Email: abcdefg123@gmail.com | Experience: 2",
+    "statut": "en_preparation",
+    "created_at": "2026-06-10T11:09:38.701Z"
   }
 ]
