@@ -86,5 +86,16 @@
     "adresse": "Email: abcdefg123@gmail.com | Experience: 2",
     "statut": "en_preparation",
     "created_at": "2026-06-10T11:09:38.701Z"
+  },
+  {
+    "id": 9,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Jeannette Haba",
+    "plat_id": 7,
+    "plat_nom": "Candidature : Assistant administratif",
+    "plat_prix": 0,
+    "adresse": "Email: jeannehaba@live.fr | Experience: 0",
+    "statut": "livre",
+    "created_at": "2026-06-10T11:13:33.702Z"
   }
 ]
