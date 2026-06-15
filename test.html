@@ -7,7 +7,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif; background: #0A0D14; color: #fff; }
-    .header { background: #111520; border-bottom: 2px solid #2B7FFF; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .header { background: #111520; border-bottom: 2px solid #2B7FFF; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
     .header h1 { font-size: 20px; color: #fff; }
     .header h1 span { color: #2B7FFF; }
     .header p { font-size: 12px; color: #8A94AE; margin-top: 4px; }
@@ -18,21 +18,17 @@
     .stat h2 { font-size: 32px; font-weight: 900; color: #2B7FFF; }
     .stat p { font-size: 12px; color: #8A94AE; margin-top: 5px; }
     .section { padding: 0 30px 30px; }
-    .section-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
-    .section h2 { font-size: 16px; color: #8A94AE; letter-spacing: 3px; }
-    select { background: #111520; color: #fff; border: 1px solid #1E2535; border-radius: 6px; padding: 8px 14px; font-size: 13px; }
+    .section h2 { font-size: 16px; color: #8A94AE; letter-spacing: 3px; margin-bottom: 15px; }
     .carte { background: #111520; border: 1px solid #1E2535; border-radius: 8px; padding: 16px 20px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-left: 3px solid #2B7FFF; }
     .carte-info h3 { font-size: 15px; color: #fff; }
     .carte-info p { color: #8A94AE; font-size: 13px; margin-top: 4px; }
-    .tag { display: inline-block; background: #1A2E45; color: #2B7FFF; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-top: 4px; margin-right: 6px; }
     .badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
     .badge-nouveau { background: #1A2E45; color: #2B7FFF; }
     .badge-convoque { background: #1A3A2A; color: #00C896; }
     .badge-refuse { background: #3A1A1A; color: #CC4444; }
-    .btn { padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; margin: 2px; text-decoration: none; display: inline-block; }
+    .btn { padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; margin: 2px; }
     .btn-blue { background: #2B7FFF; color: white; }
     .btn-red { background: #CC4444; color: white; }
-    .btn-gray { background: #1E2535; color: #fff; }
     .vide { text-align: center; padding: 40px; color: #8A94AE; }
     .refresh { text-align: center; padding: 15px; }
     .refresh button { background: #2B7FFF; color: white; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-size: 13px; }
@@ -71,20 +67,7 @@
 </div>
 
 <div class="section">
-  <div class="section-header">
-    <h2>CANDIDATURES REÇUES</h2>
-    <select id="filtre-division" onchange="charger()">
-      <option value="">Toutes les divisions</option>
-      <option value="Recrutement RH">Recrutement RH</option>
-      <option value="Sécurité">Sécurité</option>
-      <option value="Immobilier">Immobilier</option>
-      <option value="Assistance à domicile">Assistance à domicile</option>
-      <option value="Environnement">Environnement</option>
-      <option value="Assistance sociale">Assistance sociale</option>
-      <option value="Formation">Formation</option>
-      <option value="Mines Industrie">Mines Industrie</option>
-    </select>
-  </div>
+  <h2>CANDIDATURES REÇUES</h2>
   <div id="liste"></div>
 </div>
 
@@ -100,33 +83,11 @@
   updateHeure();
   setInterval(updateHeure, 1000);
 
-  function parseInfo(adresse) {
-    var info = { domaine: '', email: '', experience: '', cv: '' };
-    if (!adresse) return info;
-    var parts = adresse.split('|');
-    parts.forEach(function(p) {
-      p = p.trim();
-      if (p.indexOf('Domaine:') === 0) info.domaine = p.replace('Domaine:', '').trim();
-      if (p.indexOf('Email:') === 0) info.email = p.replace('Email:', '').trim();
-      if (p.indexOf('Experience:') === 0) info.experience = p.replace('Experience:', '').trim();
-      if (p.indexOf('CV:') === 0) info.cv = p.replace('CV:', '').trim();
-    });
-    return info;
-  }
-
   function charger() {
     fetch('/commandes')
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var candidatures = data.filter(function(c) { return c.plat_nom && c.plat_nom.indexOf('Candidature') !== -1; });
-
-        var filtreDivision = document.getElementById('filtre-division').value;
-        if (filtreDivision) {
-          candidatures = candidatures.filter(function(c) {
-            var info = parseInfo(c.adresse);
-            return info.domaine === filtreDivision;
-          });
-        }
 
         document.getElementById('total').textContent = candidatures.length;
         document.getElementById('nouvelles').textContent = candidatures.filter(function(c) { return c.statut === 'nouveau'; }).length;
@@ -146,23 +107,9 @@
           else if (c.statut === 'en_preparation') badge = '<span class="badge badge-convoque">Convoquée</span>';
           else badge = '<span class="badge badge-refuse">Refusée</span>';
 
-          var info = parseInfo(c.adresse);
-          var poste = (c.plat_nom || '').replace('Candidature : ', '');
-
-          var cvBtn = info.cv ? '<a class="btn btn-gray" href="' + info.cv + '" target="_blank">📄 Voir le CV</a>' : '';
-
           var div = document.createElement('div');
           div.className = 'carte';
-          div.innerHTML = '<div class="carte-info">' +
-            '<h3>#' + c.id + ' — ' + c.client_nom + '</h3>' +
-            '<p>💼 ' + poste + '</p>' +
-            '<p>✉️ ' + info.email + '   📆 ' + info.experience + ' ans   📱 ' + c.telephone + '</p>' +
-            '<span class="tag">' + info.domaine + '</span>' +
-            '</div>' +
-            '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
-            cvBtn + badge +
-            (c.statut === 'nouveau' ? '<button class="btn btn-blue" onclick="changerStatut(\'' + c.id + '\', \'en_preparation\')">✅ Convoquer</button><button class="btn btn-red" onclick="changerStatut(\'' + c.id + '\', \'livre\')">❌ Refuser</button>' : '') +
-            '</div>';
+          div.innerHTML = '<div class="carte-info"><h3>#' + c.id + ' — ' + c.client_nom + '</h3><p>💼 ' + (c.plat_nom || '').replace('Candidature : ', '') + '</p><p>📋 ' + (c.adresse || '') + '</p><p>📱 ' + c.telephone + '</p></div><div style="display:flex;gap:8px;align-items:center">' + badge + (c.statut === 'nouveau' ? '<button class="btn btn-blue" onclick="changerStatut(' + c.id + ', \'en_preparation\')">✅ Convoquer</button><button class="btn btn-red" onclick="changerStatut(' + c.id + ', \'livre\')">❌ Refuser</button>' : '') + '</div>';
           liste.appendChild(div);
         });
       });
