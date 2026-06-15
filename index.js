@@ -37,7 +37,8 @@ app.post('/webhook/bceip', async function(req, res) {
     return;
   }
   try {
-    var reponse = await bot_bceip.traiterMessage(telephone, message);
+    var mediaUrl = req.body.MediaUrl0 || null;
+var reponse = await bot_bceip.traiterMessage(telephone, message, mediaUrl);
     var twiml = '<?xml version="1.0" encoding="UTF-8"?><Response><Message>' + reponse + '</Message></Response>';
     res.type('text/xml');
     res.send(twiml);

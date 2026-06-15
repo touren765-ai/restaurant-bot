@@ -3,14 +3,76 @@
   "nom": "Groupe BCEIP",
   "type": "recrutement",
   "telephone": "+14155238886",
-  "postes": [
-    { "id": 1, "titre": "Agent de sécurité", "lieu": "Conakry", "type": "CDI" },
-    { "id": 2, "titre": "Gestionnaire RH", "lieu": "Conakry", "type": "CDD" },
-    { "id": 3, "titre": "Technicien mines", "lieu": "Kamsar", "type": "CDI" },
-    { "id": 4, "titre": "Comptable", "lieu": "Conakry", "type": "CDI" },
-    { "id": 5, "titre": "Agent d'entretien", "lieu": "Conakry", "type": "Interim" },
-    { "id": 6, "titre": "Chauffeur", "lieu": "Conakry", "type": "CDI" },
-    { "id": 7, "titre": "Assistant administratif", "lieu": "Conakry", "type": "CDD" },
-    { "id": 8, "titre": "Ingénieur environnement", "lieu": "N'Zérékoré", "type": "CDI" }
+  "divisions": [
+    {
+      "id": 1,
+      "nom": "Recrutement RH",
+      "postes": [
+        { "id": 101, "titre": "Gestionnaire RH", "lieu": "Conakry", "type": "CDD" },
+        { "id": 102, "titre": "Assistant administratif", "lieu": "Conakry", "type": "CDD" },
+        { "id": 103, "titre": "Chargé de recrutement", "lieu": "Conakry", "type": "CDI" }
+      ]
+    },
+    {
+      "id": 2,
+      "nom": "Sécurité",
+      "postes": [
+        { "id": 201, "titre": "Agent de sécurité", "lieu": "Conakry", "type": "CDI" },
+        { "id": 202, "titre": "Superviseur sécurité", "lieu": "Conakry", "type": "CDI" },
+        { "id": 203, "titre": "Agent de surveillance", "lieu": "Kamsar", "type": "Interim" }
+      ]
+    },
+    {
+      "id": 3,
+      "nom": "Immobilier",
+      "postes": [
+        { "id": 301, "titre": "Agent immobilier", "lieu": "Conakry", "type": "CDI" },
+        { "id": 302, "titre": "Gestionnaire de biens", "lieu": "Conakry", "type": "CDI" },
+        { "id": 303, "titre": "Technicien bâtiment", "lieu": "Conakry", "type": "CDD" }
+      ]
+    },
+    {
+      "id": 4,
+      "nom": "Assistance à domicile",
+      "postes": [
+        { "id": 401, "titre": "Personnel de ménage", "lieu": "Conakry", "type": "CDD" },
+        { "id": 402, "titre": "Cuisinier(e) à domicile", "lieu": "Conakry", "type": "CDD" },
+        { "id": 403, "titre": "Garde d'enfants", "lieu": "Conakry", "type": "CDD" }
+      ]
+    },
+    {
+      "id": 5,
+      "nom": "Environnement",
+      "postes": [
+        { "id": 501, "titre": "Ingénieur environnement", "lieu": "N'Zérékoré", "type": "CDI" },
+        { "id": 502, "titre": "Technicien collecte déchets", "lieu": "Conakry", "type": "CDD" },
+        { "id": 503, "titre": "Agent de reboisement", "lieu": "Boké", "type": "Interim" }
+      ]
+    },
+    {
+      "id": 6,
+      "nom": "Assistance sociale",
+      "postes": [
+        { "id": 601, "titre": "Agent social", "lieu": "Conakry", "type": "CDD" },
+        { "id": 602, "titre": "Conseiller en immatriculation", "lieu": "Conakry", "type": "CDI" }
+      ]
+    },
+    {
+      "id": 7,
+      "nom": "Formation",
+      "postes": [
+        { "id": 701, "titre": "Formateur conduite préventive", "lieu": "Conakry", "type": "CDD" },
+        { "id": 702, "titre": "Formateur sécurité industrielle", "lieu": "Kamsar", "type": "CDD" }
+      ]
+    },
+    {
+      "id": 8,
+      "nom": "Mines Industrie",
+      "postes": [
+        { "id": 801, "titre": "Technicien mines", "lieu": "Kamsar", "type": "CDI" },
+        { "id": 802, "titre": "Chauffeur LV Bus", "lieu": "Sangarédi", "type": "CDI" },
+        { "id": 803, "titre": "Comptable", "lieu": "Conakry", "type": "CDI" }
+      ]
+    }
   ]
 }

@@ -97,5 +97,71 @@
     "adresse": "Email: jeannehaba@live.fr | Experience: 0",
     "statut": "livre",
     "created_at": "2026-06-10T11:13:33.702Z"
+  },
+  {
+    "id": 10,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Mamado abec",
+    "plat_id": 1,
+    "plat_nom": "Candidature : Agent de sécurité",
+    "plat_prix": 0,
+    "adresse": "Email: Azerty123@mail.com | Experience: 0",
+    "statut": "en_preparation",
+    "created_at": "2026-06-10T11:36:05.405Z"
+  },
+  {
+    "id": 11,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "LOUIS TONAMOU",
+    "plat_id": 8,
+    "plat_nom": "Candidature : Ingénieur environnement",
+    "plat_prix": 0,
+    "adresse": "Email: qwerty123@gmail.com | Experience: 2",
+    "statut": "en_preparation",
+    "created_at": "2026-06-10T12:30:02.028Z"
+  },
+  {
+    "id": 12,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Mamodou Cissé",
+    "plat_id": 4,
+    "plat_nom": "Candidature : Comptable",
+    "plat_prix": 0,
+    "adresse": "Email: Mamodouc2s@gmail.com | Experience: 2",
+    "statut": "en_preparation",
+    "created_at": "2026-06-11T13:17:51.680Z"
+  },
+  {
+    "id": 13,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Naké Nord",
+    "plat_id": 2,
+    "plat_nom": "Candidature : Gestionnaire RH",
+    "plat_prix": 0,
+    "adresse": "Email: Nakenord443@icloud.com | Experience: 1",
+    "statut": "en_preparation",
+    "created_at": "2026-06-12T12:48:15.153Z"
+  },
+  {
+    "id": 14,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Ousmane Savane",
+    "plat_id": 1,
+    "plat_nom": "Candidature : Agent de sécurité",
+    "plat_prix": 0,
+    "adresse": "Email: O8savane@gmail.com | Experience: O8savane@gmail.com",
+    "statut": "en_preparation",
+    "created_at": "2026-06-12T15:02:25.381Z"
+  },
+  {
+    "id": 15,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "TOURE ANSOU",
+    "plat_id": 202,
+    "plat_nom": "Candidature : Superviseur sécurité",
+    "plat_prix": 0,
+    "adresse": "Domaine: Sécurité | Email: touren765@gmail.com | Experience: 2 | CV: https://api.twilio.com/2010-04-01/Accounts/ACbac2f2a4c4c53110b89ddc98458476de/Messages/MM4d505303059dd24096d5c4327ba96ac7/Media/MEbfd00152faa6760de17e9179503773ac",
+    "statut": "nouveau",
+    "created_at": "2026-06-15T12:59:22.031Z"
   }
 ]
