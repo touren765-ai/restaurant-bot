@@ -130,8 +130,10 @@ async function traiterMessage(telephone, message, mediaUrl) {
 
 function estSalutation(texte) {
   var salutations = ['bonjour', 'bonsoir', 'salut', 'hello', 'hi', 'allo', 'emploi', 'travail', 'job', 'postuler'];
-  return salutations.some(function(s) { return texte.includes(s); });
+  var mots = texte.toLowerCase().split(/\s+/);
+  return salutations.some(function(s) { return mots.includes(s); });
 }
+
 
 function estUnNombre(texte) {
   return /^\d+$/.test(texte.trim());

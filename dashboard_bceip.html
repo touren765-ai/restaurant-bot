@@ -36,6 +36,15 @@
     .vide { text-align: center; padding: 40px; color: #8A94AE; }
     .refresh { text-align: center; padding: 15px; }
     .refresh button { background: #2B7FFF; color: white; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .score-box { text-align: center; min-width: 70px; }
+    .score-num { font-size: 24px; font-weight: 900; }
+    .score-label { font-size: 10px; color: #8A94AE; letter-spacing: 1px; }
+    .score-excellent { color: #00C896; }
+    .score-bon { color: #2B7FFF; }
+    .score-moyen { color: #F5C842; }
+    .score-bas { color: #CC4444; }
+    .rang { background: #2B7FFF; color: #fff; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 4px; margin-right: 8px; }
+    .details { font-size: 11px; color: #5A6480; margin-top: 4px; }
   </style>
 </head>
 <body>
@@ -47,7 +56,7 @@
   </div>
   <div class="online">
     <div class="dot"></div>
-    Bot WhatsApp actif
+    Bot WhatsApp actif — IA de classement active
   </div>
 </div>
 
@@ -72,7 +81,7 @@
 
 <div class="section">
   <div class="section-header">
-    <h2>CANDIDATURES REÇUES</h2>
+    <h2>CANDIDATURES — CLASSÉES PAR IA (MEILLEUR AU PIRE)</h2>
     <select id="filtre-division" onchange="charger()">
       <option value="">Toutes les divisions</option>
       <option value="Recrutement RH">Recrutement RH</option>
@@ -114,11 +123,17 @@
     return info;
   }
 
+  function classeScore(score) {
+    if (score >= 80) return 'score-excellent';
+    if (score >= 60) return 'score-bon';
+    if (score >= 40) return 'score-moyen';
+    return 'score-bas';
+  }
+
   function charger() {
-    fetch('/commandes')
+    fetch('/commandes/bceip')
       .then(function(r) { return r.json(); })
-      .then(function(data) {
-        var candidatures = data.filter(function(c) { return c.plat_nom && c.plat_nom.indexOf('Candidature') !== -1; });
+      .then(function(candidatures) {
 
         var filtreDivision = document.getElementById('filtre-division').value;
         if (filtreDivision) {
@@ -140,7 +155,7 @@
         }
 
         liste.innerHTML = '';
-        candidatures.reverse().forEach(function(c) {
+        candidatures.forEach(function(c, index) {
           var badge = '';
           if (c.statut === 'nouveau') badge = '<span class="badge badge-nouveau">Nouvelle</span>';
           else if (c.statut === 'en_preparation') badge = '<span class="badge badge-convoque">Convoquée</span>';
@@ -149,15 +164,18 @@
           var info = parseInfo(c.adresse);
           var poste = (c.plat_nom || '').replace('Candidature : ', '');
 
-          var cvBtn = info.cv ? '<a class="btn btn-gray" href="' + info.cv + '" target="_blank">📄 Voir le CV</a>' : '';
+          var cvBtn = info.cv ? '<a class="btn btn-gray" href="/cv/' + c.id + '" target="_blank">📄 CV</a>' : '';
 
           var div = document.createElement('div');
           div.className = 'carte';
-          div.innerHTML = '<div class="carte-info">' +
-            '<h3>#' + c.id + ' — ' + c.client_nom + '</h3>' +
+          div.innerHTML =
+            '<div class="score-box"><div class="score-num ' + classeScore(c.score) + '">' + c.score + '</div><div class="score-label">' + c.niveau + '</div></div>' +
+            '<div class="carte-info" style="flex:1">' +
+            '<h3><span class="rang">#' + (index + 1) + '</span>' + c.client_nom + '</h3>' +
             '<p>💼 ' + poste + '</p>' +
-            '<p>✉️ ' + info.email + '   📆 ' + info.experience + ' ans   📱 ' + c.telephone + '</p>' +
+            '<p>✉️ ' + info.email + '   📆 ' + info.experience + ' an(s)   📱 ' + c.telephone + '</p>' +
             '<span class="tag">' + info.domaine + '</span>' +
+            '<div class="details">' + (c.details ? c.details.join(' • ') : '') + '</div>' +
             '</div>' +
             '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
             cvBtn + badge +

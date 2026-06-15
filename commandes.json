@@ -161,7 +161,40 @@
     "plat_nom": "Candidature : Superviseur sécurité",
     "plat_prix": 0,
     "adresse": "Domaine: Sécurité | Email: touren765@gmail.com | Experience: 2 | CV: https://api.twilio.com/2010-04-01/Accounts/ACbac2f2a4c4c53110b89ddc98458476de/Messages/MM4d505303059dd24096d5c4327ba96ac7/Media/MEbfd00152faa6760de17e9179503773ac",
-    "statut": "nouveau",
+    "statut": "en_preparation",
     "created_at": "2026-06-15T12:59:22.031Z"
+  },
+  {
+    "id": 16,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Toure Ansou",
+    "plat_id": 301,
+    "plat_nom": "Candidature : Agent immobilier",
+    "plat_prix": 0,
+    "adresse": "Domaine: Immobilier | Email: touren765@gmail.com | Experience: 3 | CV: https://api.twilio.com/2010-04-01/Accounts/ACbac2f2a4c4c53110b89ddc98458476de/Messages/MMc99a160ffc8bcc6fc79ce3b654baf50b/Media/ME72ca5e16cbfb42ea21a68c0764065a4f",
+    "statut": "en_preparation",
+    "created_at": "2026-06-15T14:33:26.610Z"
+  },
+  {
+    "id": 17,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Christophe Kolie",
+    "plat_id": 301,
+    "plat_nom": "Candidature : Agent immobilier",
+    "plat_prix": 0,
+    "adresse": "Domaine: Immobilier | Email: Christkolie224@gmail.com | Experience: 1 | CV: https://api.twilio.com/2010-04-01/Accounts/ACbac2f2a4c4c53110b89ddc98458476de/Messages/MM24812fa9461e64d8aa3f931b966061bf/Media/ME98a0abf0da40834d5b6f983f0f9f3e4d",
+    "statut": "en_preparation",
+    "created_at": "2026-06-15T16:22:36.061Z"
+  },
+  {
+    "id": 18,
+    "telephone": "whatsapp:+33774705562",
+    "client_nom": "Diallo Mamadou",
+    "plat_id": 202,
+    "plat_nom": "Candidature : Superviseur sécurité",
+    "plat_prix": 0,
+    "adresse": "Domaine: Sécurité | Email: diallomamad224@gmail.com | Experience: 2 | CV: https://api.twilio.com/2010-04-01/Accounts/ACbac2f2a4c4c53110b89ddc98458476de/Messages/MM4b062789858be60cbe95a694abd1a821/Media/ME6d0388725b73ddf54cd0564558859a34",
+    "statut": "en_preparation",
+    "created_at": "2026-06-15T17:29:09.473Z"
   }
 ]
