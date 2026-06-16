@@ -1,7 +1,7 @@
 require('dotenv').config();
 var fs = require('fs');
 var path = require('path');
-var database = require('./database');
+var database = require('./database_mongo');
 
 var sessions = {};
 
@@ -129,7 +129,7 @@ async function traiterMessage(telephone, message, mediaUrl) {
 }
 
 function estSalutation(texte) {
-  var salutations = ['bonjour', 'bonsoir', 'salut', 'hello', 'hi', 'allo', 'emploi', 'travail', 'job', 'postuler'];
+  var salutations = ['bonjour', 'bonsoir', 'salut', 'hello', 'hi', 'emploi', 'travail', 'job', 'postuler'];
   var mots = texte.toLowerCase().split(/\s+/);
   return salutations.some(function(s) { return mots.includes(s); });
 }
